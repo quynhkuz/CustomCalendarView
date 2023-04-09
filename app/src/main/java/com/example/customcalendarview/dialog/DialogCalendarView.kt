@@ -21,7 +21,7 @@ class DialogCalendarView(context: Context) : Dialog(context) {
 
     var newDate = ""
 
-    lateinit var calendar :Calendar
+//    lateinit var calendar :Calendar
 
     lateinit var imgLeft :ImageView
     lateinit var imgRight :ImageView
@@ -33,8 +33,9 @@ class DialogCalendarView(context: Context) : Dialog(context) {
 
     lateinit var eventClick :EventClick
 
-    var month :Int =0
-    var year :Int = 0
+    var month :Int =5
+    var year :Int = 2023
+    var day :Int = 15
 
 
     init {
@@ -60,17 +61,20 @@ class DialogCalendarView(context: Context) : Dialog(context) {
 
         calendarview = findViewById(R.id.custom_calendar)
 
-        calendar = Calendar.getInstance()
-        month = calendar.get(Calendar.MONTH)+1
-        year = calendar.get(Calendar.YEAR)
+//        calendar = Calendar.getInstance()
+//        month = calendar.get(Calendar.MONTH)+1
+//        year = calendar.get(Calendar.YEAR)
+//        day = calendar.get(Calendar.DAY_OF_MONTH)
 
 
 
         eventClick= object :EventClick{
-            override fun onClickDate(date: String) {
-                newDate = "${date}/${month}/${year}"
+            override fun onClickDate(mDay: String) {
+                day = mDay.toInt()
             }
         }
+
+        calendarview.onClickNext(day,month,year)
 
         calendarview.createEventInterface(eventClick)
     }
@@ -89,7 +93,7 @@ class DialogCalendarView(context: Context) : Dialog(context) {
                 year -=1
             }
             txt.text = "${month}/${year}"
-            calendarview.onClickNext(month,year)
+            calendarview.onClickNext(day,month,year)
         }
 
         imgRight.setOnClickListener {
@@ -100,7 +104,7 @@ class DialogCalendarView(context: Context) : Dialog(context) {
                 year +=1
             }
             txt.text = "${month}/${year}"
-            calendarview.onClickNext(month,year)
+            calendarview.onClickNext(day,month,year)
         }
 
 
@@ -110,7 +114,7 @@ class DialogCalendarView(context: Context) : Dialog(context) {
 
         oke.setOnClickListener {
             dismiss()
-            Toast.makeText(context,newDate,Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "${day}/${month}/${year}",Toast.LENGTH_LONG).show()
         }
 
     }

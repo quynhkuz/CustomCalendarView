@@ -247,17 +247,18 @@ class CalendarViewPro2(context: Context?, attrs: AttributeSet?) : View(context, 
     }
 
 
-    fun onClickNext(month :Int,year :Int)
+    fun onClickNext(newDay :Int,month :Int,year :Int)
     {
         calendar.set(Calendar.MONTH,month-1)
         calendar.set(Calendar.YEAR,year)
+        day = newDay
 
         invalidate()
 
     }
 
 
-    fun dpToPx(dp :Int): Float {
+    private fun dpToPx(dp :Int): Float {
         val pxValue = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), resources.displayMetrics).toInt()
 
@@ -265,10 +266,8 @@ class CalendarViewPro2(context: Context?, attrs: AttributeSet?) : View(context, 
     }
 
 
-    fun setHeight(withCalendar: Int): Int
+    private fun setHeight(withCalendar: Int): Int
     {
-
-
         val daysInMonth =
             calendar.getActualMaximum(Calendar.DAY_OF_MONTH) // lấy số ngày tối đa trong tháng
         //lay ngay đầu tien trong tháng vao thứ mấy
